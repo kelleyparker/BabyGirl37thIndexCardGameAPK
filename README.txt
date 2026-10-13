@@ -2,8 +2,8 @@ INDEX CARD GAME - ANDROID APKS
 ==============================
 
 What is in this folder
-  IndexCardDemo\      Android project for the DEMO app (fake sample rounds, host PIN 0000)
-  BabyGirlBirthday\   Android project for the REAL app (host PIN 3335)
+  IndexCardDemo\      Android project for the DEMO app (fake sample rounds)
+  BabyGirlBirthday\   Android project for the REAL app (real itinerary)
   build-apks.bat      One-click build script for Windows
 
 Before you build (one time)

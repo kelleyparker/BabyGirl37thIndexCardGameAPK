@@ -4,7 +4,7 @@ A safe-to-share version of the Index Card Game. Same app, same look, but every p
 
 - App ID: `com.kelley.indexcarddemo`
 - App name: IndexCardDemo
-- Host PIN: `0000`
+- Host PIN: the demo PIN is shared with whoever runs the demo (stored in the code only as a salted SHA-256 hash, `PIN_HASH` in `www/index.html`)
 - Saved-data key (localStorage): `indexcard-demo-v1`
 - A yellow DEMO tag shows in the top bar so nobody mistakes it for the real thing
 
@@ -14,7 +14,7 @@ A safe-to-share version of the Index Card Game. Same app, same look, but every p
 - Pick a card, then confirm with three escalating Lock taps (Lock it in, Are you sure?, FINAL ANSWER. LOCK IT.) to flip it over
 - "Open in Google Maps" and "Copy address" on each revealed card
 - A $100 spree tally in the shopping round
-- Host mode (PIN `0000`): see every card, tick a confirmation checklist, and reset the game
+- Host mode (behind the host PIN): see every card, tick a confirmation checklist, and reset the game
 - Android back button goes back one screen and never exits mid-game
 
 ## Layout

@@ -5,7 +5,7 @@ The birthday-day game for Stephani's 37th, Thursday, October 15, 2026, roughly 9
 - App ID: `com.kelley.stephaniday`
 - App name: Baby Girl's Birthday
 - Saved-data key (localStorage): `stephani-day-v1`
-- Host PIN: set as `PIN` near the top of the script in `www/index.html` (kept out of this README on purpose)
+- Host PIN: stored in the code only as a salted SHA-256 hash (`PIN_HASH` in `www/index.html`), so the PIN itself is not published
 
 ## What it does
 
@@ -53,4 +53,4 @@ The APK appears at `android/app/build/outputs/apk/debug/app-debug.apk`. Create `
 
 ## Keep this content separate
 
-The real itinerary lives only in this project. The demo app (`../IndexCardDemo`) uses invented places and a different PIN and storage key. Do not mix the two.
+The real itinerary lives only in this project. The demo app (`../IndexCardDemo`) uses invented places and a different host PIN and storage key. Do not mix the two.

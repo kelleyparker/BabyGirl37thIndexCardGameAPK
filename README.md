@@ -84,4 +84,6 @@ Both debug APKs were installed and exercised on a physical Android 16 phone over
 
 ## Privacy
 
-This repo is kept private on purpose. The real app's folder contains the surprise itinerary and the host PIN, and the pre-built `BabyGirlBirthday.apk` contains the same content. Think before making it public.
+The host PINs are not published anywhere in this repo. The app code stores each PIN only as a salted SHA-256 hash (`PIN_HASH` in each `www/index.html`), and the PIN check hashes what you type and compares. This keeps the PINs out of the source and the APKs, but a 4-digit PIN can still be brute-forced from its hash, so treat the host PIN as a casual gate for whoever runs the day, not as real security.
+
+The real app's folder does contain the real birthday itinerary (places and times), which is public in this repo and inside `BabyGirlBirthday.apk`.
