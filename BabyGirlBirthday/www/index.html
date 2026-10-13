@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#17202b"><link rel="stylesheet" href="fonts.css"><style>html,body{margin:0;background:#17202b;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}:root{color-scheme:dark}[hidden]{display:none!important}</style>
+<title>Baby Girl's Birthday</title>
+<style>
+/* Layout concept: a desk at night, one index card (or two) at a time, ruled lines and a red header line like the real thing. */
+:root {
+  --desk: #17202b;
+  --desk-2: #222f3e;
+  --card: #f8f8f3;
+  --rule: #bcd4ea;
+  --margin: #d9493f;
+  --ink: #22408f;
+  --paper-text: #1d2433;
+  --text: #eaeef3;
+  --muted: #a2afbe;
+  --hi: #f7e27a;
+  --gold: #e6b23a;
+  --bad: #ff8b7e;
+  --display: 'Permanent Marker', 'Marker Felt', 'Comic Sans MS', cursive;
+  --hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background: var(--desk);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.5;
+  padding-inline: 16px;
+  padding-block: 14px 48px;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.app { max-width: 480px; margin: 0 auto; display: grid; gap: 18px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--hi); outline-offset: 3px; }
+
+/* top bar */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font-family: var(--display); font-size: 20px; letter-spacing: .02em; }
+.dots { display: flex; gap: 8px; }
+.dot { width: 16px; height: 16px; padding: 0; border-radius: 50%; border: 2px solid var(--muted); background: transparent; }
+.dot.done { background: var(--gold); border-color: var(--gold); }
+.dot.cur { border-color: var(--hi); box-shadow: 0 0 0 3px #f7e27a40; }
+.dot:disabled { opacity: .35; cursor: default; }
+
+/* type */
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.h1 { font-family: var(--display); font-weight: 400; font-size: clamp(34px, 11vw, 48px); line-height: 1.05; margin: 0; text-wrap: balance; }
+.h2 { font-family: var(--display); font-weight: 400; font-size: 28px; line-height: 1.1; margin: 0; text-wrap: balance; }
+.lead { color: var(--text); margin: 0; max-width: 40ch; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+/* index card */
+.card {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  color: var(--paper-text);
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 18px 20px;
+  min-height: 190px;
+  box-shadow: 0 12px 26px #0000005c, 0 1px 0 #ffffff80 inset;
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card::before {
+  content: "";
+  position: absolute; inset: 66px 0 0 0;
+  background: repeating-linear-gradient(to bottom, transparent 0 27px, var(--rule) 27px 28px);
+  pointer-events: none;
+}
+.card::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 36px; height: 2px;
+  background: var(--margin);
+  pointer-events: none;
+}
+.card > * { position: relative; z-index: 1; }
+.card-top { display: flex; justify-content: space-between; align-items: center; height: 26px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #5a6578; }
+.card-top b { font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--margin); letter-spacing: 0; }
+.name { font-family: var(--hand); font-weight: 700; font-size: 34px; line-height: 32px; color: var(--ink); margin: 40px 0 0; text-wrap: balance; }
+button.card[aria-pressed="true"] .name.mystery { background: none; display: block; opacity: .9; }
+.name.mystery { font-family: var(--display); font-size: 64px; line-height: 72px; text-align: center; color: var(--ink); opacity: .55; }
+.vibe { font-family: var(--hand); font-weight: 500; font-size: 24px; line-height: 28px; color: var(--paper-text); margin: 14px 0 0; }
+button.card:active { transform: scale(.985); }
+button.card[aria-pressed="true"] { transform: translateY(-3px) rotate(-.6deg); box-shadow: 0 0 0 4px var(--hi), 0 16px 30px #00000070; }
+button.card[aria-pressed="true"] .name { background: linear-gradient(transparent 52%, #f7e27a99 52%); display: inline; }
+.or { text-align: center; font-family: var(--display); color: var(--muted); font-size: 20px; margin: -6px 0; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 12px 20px; border-radius: 8px;
+  border: 2px solid var(--muted); background: transparent; color: var(--text);
+  font-weight: 500; font-size: 16px; text-decoration: none; text-align: center;
+}
+.btn.primary { background: var(--hi); border-color: var(--hi); color: #1b1d22; }
+.btn.primary:disabled { background: #3a4757; border-color: #3a4757; color: #8794a4; cursor: default; }
+.btn.block { width: 100%; }
+.btn.tiny { min-height: 40px; padding: 6px 12px; font-size: 14px; }
+.link { background: none; border: 0; padding: 8px 0; color: var(--muted); text-decoration: underline; font-size: 13px; }
+
+/* reveal */
+.stamp {
+  justify-self: start;
+  font-family: var(--display); font-size: 20px; color: var(--gold);
+  border: 3px solid var(--gold); border-radius: 6px; padding: 2px 12px;
+  transform: rotate(-3deg);
+  animation: thump .28s ease-out;
+}
+.btn.lock.c1 { background: #ff9f43; border-color: #ff9f43; color: #1b1d22; animation: shake .45s; }
+.btn.lock.c2 { background: #ff3b30; border-color: #ff3b30; color: #fff; font-weight: 700; letter-spacing: .04em; animation: pulse .8s infinite; }
+.lockmsg { text-align: center; font-family: var(--hand); font-size: 26px; line-height: 30px; }
+.lockmsg.c1 { color: #ff9f43; }
+.lockmsg.c2 { color: #ff6b5e; }
+button.card.heat1[aria-pressed="true"] { box-shadow: 0 0 0 5px #ff9f43, 0 0 28px #ff9f4388, 0 16px 30px #00000070; animation: shake .45s; }
+button.card.heat2[aria-pressed="true"] { box-shadow: 0 0 0 6px #ff3b30, 0 0 46px #ff3b30cc, 0 16px 30px #00000070; animation: cardpulse .8s infinite; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 #ff3b3099; transform: scale(1); } 50% { box-shadow: 0 0 0 12px #ff3b3000; transform: scale(1.03); } }
+@keyframes cardpulse { 0%,100% { box-shadow: 0 0 0 6px #ff3b30, 0 0 30px #ff3b3099, 0 16px 30px #00000070; } 50% { box-shadow: 0 0 0 8px #ff3b30, 0 0 62px #ff3b30, 0 16px 30px #00000070; } }
+@media (prefers-reduced-motion: reduce) { .btn.lock, button.card { animation: none !important; } }
+@keyframes thump { from { transform: rotate(-3deg) scale(1.6); opacity: 0; } to { transform: rotate(-3deg) scale(1); opacity: 1; } }
+.panel { background: var(--desk-2); border-radius: 10px; padding: 16px; display: grid; gap: 10px; }
+.panel h3 { margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.addr { margin: 0; font-size: 17px; user-select: all; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > * { flex: 1 1 140px; min-width: 0; }
+.game { background: #f7e27a1f; border: 2px dashed var(--hi); border-radius: 10px; padding: 14px 16px; }
+.game h3 { color: var(--hi); }
+.game p { margin: 6px 0 0; }
+ul.tips { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* spree tracker */
+.bar { height: 12px; background: #0000005c; border-radius: 99px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--gold); border-radius: 99px; transition: width .2s ease; }
+.bar.over > i { background: var(--bad); }
+.totals { display: flex; justify-content: space-between; gap: 8px; font-variant-numeric: tabular-nums; flex-wrap: wrap; }
+.over-t { color: var(--bad); }
+.form { display: flex; gap: 8px; flex-wrap: wrap; }
+.form input { flex: 1 1 120px; min-width: 0; min-height: 48px; font: inherit; font-size: 16px; padding: 8px 12px; border-radius: 8px; border: 2px solid #3d4c5e; background: var(--desk); color: var(--text); }
+.form input::placeholder { color: #7b8998; }
+.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-variant-numeric: tabular-nums; }
+.items li { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.items .x { background: none; border: 0; color: var(--muted); font-size: 20px; min-width: 40px; min-height: 40px; }
+
+/* summary */
+.day { display: grid; gap: 12px; }
+.slip { background: var(--card); color: var(--paper-text); border-radius: 6px; padding: 12px 16px; display: grid; gap: 2px; box-shadow: 0 6px 14px #0000004d; border-left: 6px solid var(--margin); }
+.slip .t { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #5a6578; }
+.slip .n { font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1.1; color: var(--ink); }
+.slip .a { font-size: 13px; color: #3c4658; }
+.slip a { color: var(--ink); font-weight: 500; }
+.sign { font-family: var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; margin: 0; }
+
+/* host */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.scroll { overflow-x: auto; }
+th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid #34445a; }
+th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.checks label { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.checks input { width: 22px; height: 22px; margin-top: 2px; flex: none; accent-color: var(--gold); }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--hi); color: #1b1d22; padding: 10px 16px; border-radius: 8px; font-weight: 500; z-index: 10; max-width: calc(100% - 32px); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+</head><body>
+<div class="app" id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY = 'stephani-day-v1';
+  var PIN = '3335';
+
+  var ROUNDS = [
+    { id: 'r1', time: '9:00 AM', title: 'Breakfast', opts: [
+      { name: "Cisco's Bakery & Cafe", vibe: "Austin's oldest Tex-Mex spot, open since 1950. Migas and pan dulce.",
+        addr: '1511 E 6th St, Austin, TX 78702', q: "Cisco's Restaurant Bakery Bar 1511 E 6th St Austin TX 78702",
+        tips: ['Expect a line at peak brunch.'],
+        host: "Listed open daily from 7 AM." },
+      { name: 'Sour Duck Market', vibe: 'Bakery counter, brunch plates and a big patio from the Odd Duck team.',
+        addr: '1814 E Martin Luther King Jr Blvd, Austin, TX 78702', q: 'Sour Duck Market 1814 E Martin Luther King Jr Blvd Austin TX 78702',
+        tips: ['Check the pastry case on the way in.'],
+        host: 'Sources disagree on Thursday opening (9 or 10 AM). Confirm before a 9 AM start.' }
+    ]},
+    { id: 'r2', time: '10:30 AM', title: 'Morning adventure', opts: [
+      { name: 'Mansfield Dam Park', vibe: 'A lakeside walk with Lake Travis views.',
+        addr: '4370 Mansfield Dam Rd, Austin, TX 78732', q: 'Mansfield Dam Park 4370 Mansfield Dam Rd Austin TX 78732',
+        tips: ['Bring water and sunscreen.', 'There is an entrance fee at the gate.'],
+        host: 'Travis County park, daytime hours only, far northwest from Creedmoor.' },
+      { name: 'Paddleboards or kayaks', vibe: 'Out on Lady Bird Lake with the skyline in view.',
+        addr: 'Rowing Dock, 2418 Stratford Dr, Austin, TX 78746', q: 'Rowing Dock 2418 Stratford Dr Austin TX 78746',
+        tips: ['Bring a photo ID and a credit card.', 'Wear shoes that can get wet.', 'Sunscreen and a hat.'],
+        host: 'Walk-ups welcome daily. Kayaks about $20 an hour. Needs photo ID and a matching credit card.' }
+    ]},
+    { id: 'r3', time: '12:00 PM', title: 'Lunch', opts: [
+      { name: 'La Santa Barbacha', vibe: 'Barbacoa and migas tacos at a shaded picnic-table taqueria.',
+        addr: '2806 Manor Rd, Austin, TX 78722', q: 'La Santa Barbacha 2806 Manor Rd Austin TX 78722',
+        tips: ['The kitchen closes at 3 PM.'],
+        host: 'Listed 7 AM to 3 PM daily. Barbacoa tacos, a Mexican taqueria and not a BBQ joint.' },
+      { name: "Joann's Fine Foods", vibe: 'Tex-Mex diner with a palapa-bar patio. Queso and a frozen margarita.',
+        addr: '1224 S Congress Ave, Austin, TX 78704', q: "Joann's Fine Foods 1224 S Congress Ave Austin TX 78704",
+        tips: [],
+        host: 'Takes reservations on OpenTable. Thursday lunch hours not verified.' }
+    ]},
+    { id: 'r4', time: '1:30 PM', title: '$100 shopping spree', opts: [
+      { name: 'Target', vibe: 'One hundred dollars, one store, air-conditioned. Every aisle is fair game.',
+        addr: '9500 S IH 35, Austin, TX 78748', q: 'Target Southpark Meadows 9500 S IH 35 Austin TX 78748',
+        game: 'You choose, no veto. Add each item to the tally below and stay at or under $100.',
+        tips: [],
+        host: 'Listed open 8 AM to 10 PM daily. Closest shopping stop to Creedmoor.' },
+      { name: 'Paper Work', vibe: 'Art prints, jewelry and tees from local indie makers.',
+        addr: '1704 S Congress Ave, Austin, TX 78704', q: 'Paper Work 1704 S Congress Ave Austin TX 78704',
+        game: 'You choose, no veto. Add each item to the tally below and stay at or under $100.',
+        tips: ['Ask about parking validation.'],
+        host: 'Hours not verified. Listing says it offers parking validation.' }
+    ]},
+    { id: 'r5', time: '3:00 PM', title: 'Play break', opts: [
+      { name: 'BookPeople', vibe: "Texas's biggest independent bookstore. Three floors and a cafe.",
+        addr: '603 N Lamar Blvd, Austin, TX 78703', q: 'BookPeople 603 N Lamar Blvd Austin TX 78703',
+        game: 'Split up for 20 minutes. Stephani picks a book Kelley would actually read. Kelley picks one for Stephani. $20 cap each. Write a note inside the cover, swap, then read the notes.',
+        tips: [],
+        host: 'Listed open daily 9 AM to 11 PM.' },
+      { name: 'Uncommon Objects', vibe: 'A treasure-hunt antique shop full of oddities.',
+        addr: '1602 Fortview Rd, Austin, TX 78704', q: 'Uncommon Objects 1602 Fortview Rd Austin TX 78704',
+        game: 'Split up for 20 minutes. Each of you finds something under $20 that reminds you of the other. Write a note, swap, then read the notes.',
+        tips: [],
+        host: 'An older listing says open daily 10 AM to 7 PM. Call 512-442-4000 to confirm.' }
+    ]},
+    { id: 'r6', time: '4:00 PM', title: 'Sweet treat', opts: [
+      { name: 'Dolce Neve gelato', vibe: 'Small-batch Italian gelato in a little South Austin bungalow with a patio.',
+        addr: '1713 S 1st St, Austin, TX 78704', q: 'Dolce Neve Gelato 1713 S 1st St Austin TX 78704',
+        tips: [],
+        host: 'Hours not verified.' },
+      { name: "Sugar Mama's Bakeshop", vibe: 'Cupcakes, cakes and pies. Pick one to take home for tonight.',
+        addr: '1905 S 1st St, Austin, TX 78704', q: "Sugar Mama's Bakeshop 1905 S 1st St Austin TX 78704",
+        tips: [],
+        host: 'Listed Thursday 10 AM to 8 PM.' }
+    ]},
+    { id: 'r7', time: '4:30 PM', title: 'Final stop', opts: [
+      { name: 'Mount Bonnell', vibe: 'The best view in town. About 100 steps to the top.',
+        addr: '3800 Mount Bonnell Rd, Austin, TX 78731', q: 'Mount Bonnell 3800 Mount Bonnell Rd Austin TX 78731',
+        tips: ['Bring water. There is little shade.', 'Leave nothing in the car.'],
+        host: 'Open 5 AM to 10 PM. Free parking is limited and break-ins have been reported.' },
+      { name: 'A quiet patio drink', vibe: 'A courtyard drink on South Congress to end the day.',
+        addr: 'Hotel San José Courtyard Lounge, 1316 S Congress Ave, Austin, TX 78704', q: 'Hotel San Jose 1316 S Congress Ave Austin TX 78704',
+        tips: [],
+        host: 'Listed open daily, but one source says the bar opens at 5 PM. Confirm the 4:30 start.' }
+    ]}
+  ];
+
+  var state = { picks: {}, spree: [], checks: {} };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var p = JSON.parse(raw);
+      if (p && typeof p === 'object') {
+        state.picks = p.picks || {};
+        state.spree = Array.isArray(p.spree) ? p.spree : [];
+        state.checks = p.checks || {};
+      }
+    }
+  } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var ui = { screen: 'intro', idx: 0, sel: null, conf: 0, hostOK: false, pinErr: false, resetAsk: false };
+  var app = document.getElementById('app');
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function mapsUrl(q) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
+  function money(n) { return '$' + n.toFixed(2); }
+  function firstOpen() { for (var i = 0; i < ROUNDS.length; i++) if (state.picks[ROUNDS[i].id] == null) return i; return -1; }
+  function picked(i) { return state.picks[ROUNDS[i].id] != null; }
+  function spreeTotal() { var t = 0; state.spree.forEach(function (s) { t += s.amt; }); return Math.round(t * 100) / 100; }
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.hidden = true; }, 2200);
+  }
+
+  /* ---------- views ---------- */
+  function topbar() {
+    if (ui.screen === 'host') return '<div class="topbar"><span class="brand">Host view</span></div>';
+    var fo = firstOpen();
+    var dots = ROUNDS.map(function (r, i) {
+      var cls = 'dot' + (picked(i) ? ' done' : '') + ((ui.screen === 'round' || ui.screen === 'reveal') && ui.idx === i ? ' cur' : '');
+      var enabled = picked(i) || i === fo;
+      return '<button class="' + cls + '" data-act="dot" data-i="' + i + '" aria-label="Round ' + (i + 1) + ': ' + esc(r.title) + '"' + (enabled ? '' : ' disabled') + '></button>';
+    }).join('');
+    return '<div class="topbar"><span class="brand">Stephani’s Day</span><div class="dots">' + dots + '</div></div>';
+  }
+
+  function cardHTML(letter, roundNo, o, tag, pressed) {
+    var inner = '<div class="card-top"><b>' + letter + '</b><span>Round ' + roundNo + '</span></div>' +
+      '<div class="name">' + esc(o.name) + '</div><div class="vibe">' + esc(o.vibe) + '</div>';
+    if (tag === 'button') {
+      inner = '<div class="card-top"><b>' + letter + '</b><span>Round ' + roundNo + '</span></div>' +
+        '<div class="name mystery">?</div><div class="vibe">Face down. Pick a side to find out.</div>';
+      return '<button class="card' + (pressed && ui.conf ? ' heat' + ui.conf : '') + '" data-act="pick" data-opt="' + (letter === 'A' ? 0 : 1) + '" aria-pressed="' + (pressed ? 'true' : 'false') + '">' + inner + '</button>';
+    }
+    return '<div class="card">' + inner + '</div>';
+  }
+
+  function introView() {
+    var fo = firstOpen();
+    var label = fo === -1 ? 'See my day' : (fo === 0 ? 'Draw the first card' : 'Pick up where I left off');
+    return '<div class="eyebrow">Thursday, October 15 &middot; about 9 AM to 5 PM</div>' +
+      '<h1 class="h1">Happy 37th, Stephani</h1>' +
+      '<p class="lead">Seven rounds. Two cards each. Pick a side and lock it in. Every card is face down until you choose.</p>' +
+      '<button class="btn primary block" data-act="start">' + label + '</button>' +
+      '<div style="text-align:center"><button class="link" data-act="host">Host</button></div>';
+  }
+
+  var LOCKTXT = ['Lock it in', 'Are you sure?', 'FINAL ANSWER. LOCK IT.'];
+  var LOCKMSG = ['', 'Lock number 2 of 3. No peeking at the other card.', 'Last chance. One more tap and it is sealed.'];
+
+  function roundView() {
+    var r = ROUNDS[ui.idx], n = ui.idx + 1;
+    return '<div><div class="eyebrow">Round ' + n + ' of ' + ROUNDS.length + ' &middot; ' + esc(r.time) + '</div>' +
+      '<h1 class="h1" style="margin-top:6px">' + esc(r.title) + '</h1></div>' +
+      cardHTML('A', n, r.opts[0], 'button', ui.sel === 0) +
+      '<div class="or" aria-hidden="true">or</div>' +
+      cardHTML('B', n, r.opts[1], 'button', ui.sel === 1) +
+      '<button class="btn primary block lock c' + ui.conf + '" data-act="lock"' + (ui.sel == null ? ' disabled' : '') + '>' + LOCKTXT[ui.conf] + '</button>' +
+      (ui.conf > 0 ? '<div class="lockmsg c' + ui.conf + '" role="status">' + LOCKMSG[ui.conf] + '</div>' : '');
+  }
+
+  function spreeHTML() {
+    var t = spreeTotal(), over = t > 100, pct = Math.min(100, t);
+    var items = state.spree.map(function (s, i) {
+      return '<li><span>' + esc(s.label || 'Item ' + (i + 1)) + '</span><span>' + money(s.amt) +
+        ' <button class="x" data-act="spreeDel" data-i="' + i + '" aria-label="Remove ' + esc(s.label || 'item') + '">&times;</button></span></li>';
+    }).join('');
+    return '<div class="panel" id="spree"><h3>Spree tally &middot; $100 cap</h3>' +
+      '<div class="bar' + (over ? ' over' : '') + '"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="totals"><span>Spent ' + money(t) + '</span>' +
+      (over ? '<span class="over-t">Over by ' + money(t - 100) + '</span>' : '<span>Left ' + money(100 - t) + '</span>') + '</div>' +
+      '<form class="form" id="spreeForm"><input id="spree-label" type="text" placeholder="What is it?" autocomplete="off" maxlength="40">' +
+      '<input id="spree-amt" type="number" inputmode="decimal" step="0.01" min="0" placeholder="Price" required>' +
+      '<button class="btn primary tiny" type="submit">Add</button></form>' +
+      (items ? '<ul class="items">' + items + '</ul>' : '') + '</div>';
+  }
+
+  function revealView() {
+    var r = ROUNDS[ui.idx], n = ui.idx + 1;
+    var oi = state.picks[r.id], o = r.opts[oi];
+    var last = ui.idx === ROUNDS.length - 1;
+    var h = '<div><div class="eyebrow">Round ' + n + ' of ' + ROUNDS.length + ' &middot; ' + esc(r.time) + ' &middot; ' + esc(r.title) + '</div></div>' +
+      '<div class="stamp">LOCKED IN</div>' +
+      cardHTML(oi === 0 ? 'A' : 'B', n, o, 'div', false) +
+      '<div class="panel"><h3>Where</h3><p class="addr" id="addr">' + esc(o.addr) + '</p>' +
+      '<div class="row"><a class="btn primary" href="' + mapsUrl(o.q) + '" target="_blank" rel="noopener">Open in Google Maps</a>' +
+      '<button class="btn" data-act="copy" data-addr="' + esc(o.addr) + '">Copy address</button></div></div>';
+    if (o.game) h += '<div class="game"><h3 style="margin:0">The game</h3><p>' + esc(o.game) + '</p></div>';
+    if (r.id === 'r4') h += spreeHTML();
+    if (o.tips && o.tips.length) h += '<div class="panel"><h3>Good to know</h3><ul class="tips">' + o.tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+    h += '<button class="btn primary block" data-act="next">' + (last ? 'See my day' : 'Next round') + '</button>' +
+      '<div style="text-align:center"><button class="link" data-act="switch">Wait, switch cards</button></div>';
+    return h;
+  }
+
+  function summaryView() {
+    var slips = ROUNDS.map(function (r) {
+      var oi = state.picks[r.id];
+      if (oi == null) return '';
+      var o = r.opts[oi];
+      return '<div class="slip"><div class="t">' + esc(r.time) + ' &middot; ' + esc(r.title) + '</div><div class="n">' + esc(o.name) + '</div>' +
+        '<div class="a">' + esc(o.addr) + '</div><div><a href="' + mapsUrl(o.q) + '" target="_blank" rel="noopener">Open in Google Maps</a></div></div>';
+    }).join('');
+    return '<div class="eyebrow">Thursday, October 15</div><h1 class="h1">Your day</h1>' +
+      '<div class="day">' + slips + '</div>' +
+      '<p class="sign">Happy birthday, Stephani.<br>Love, Kelley</p>' +
+      '<div style="text-align:center"><button class="link" data-act="host">Host</button></div>';
+  }
+
+  function hostView() {
+    if (!ui.hostOK) {
+      return '<p class="lead">This part is for Kelley. Enter the PIN.</p>' +
+        '<form class="form" id="pinForm"><input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="PIN" aria-label="PIN">' +
+        '<button class="btn primary tiny" type="submit">Open</button></form>' +
+        (ui.pinErr ? '<p class="over-t" style="margin:0">That PIN does not match.</p>' : '') +
+        '<div><button class="link" data-act="hostExit">Back to the game</button></div>';
+    }
+    var rows = ROUNDS.map(function (r) {
+      var a = r.opts[0], b = r.opts[1];
+      return '<tr><td>' + esc(r.time) + '<br><span class="muted">' + esc(r.title) + '</span></td>' +
+        '<td><b>A</b> ' + esc(a.name) + '<br><span class="muted">' + esc(a.addr) + '</span></td>' +
+        '<td><b>B</b> ' + esc(b.name) + '<br><span class="muted">' + esc(b.addr) + '</span></td></tr>';
+    }).join('');
+    var checks = [];
+    ROUNDS.forEach(function (r) {
+      r.opts.forEach(function (o, i) {
+        var k = r.id + (i ? 'B' : 'A');
+        checks.push('<li><label><input type="checkbox" data-k="' + k + '"' + (state.checks[k] ? ' checked' : '') + '><span><b>' + esc(o.name) + '</b><br><span class="muted">' + esc(o.host) + '</span></span></label></li>');
+      });
+    });
+    var reset = ui.resetAsk
+      ? '<p style="margin:0">Clear her picks and the spree tally?</p><div class="row"><button class="btn" data-act="resetYes">Yes, clear it</button><button class="btn" data-act="resetNo">Keep them</button></div>'
+      : '<button class="btn block" data-act="resetAsk">Reset the game</button>';
+    return '<h1 class="h2">Every card</h1>' +
+      '<div class="panel scroll"><table><thead><tr><th>When</th><th>Card A</th><th>Card B</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '<div class="panel"><h3>Confirm before Thursday</h3><ul class="checks">' + checks.join('') + '</ul></div>' +
+      '<div class="panel"><h3>On her phone</h3><p style="margin:0" class="small">In Chrome on Android, open the menu and choose Add to Home screen. Her picks stay on this phone. Keep this link or the saved file handy in case of weak signal.</p></div>' +
+      '<div class="panel">' + reset + '</div>' +
+      '<button class="btn primary block" data-act="hostExit">Back to the game</button>';
+  }
+
+  /* ---------- render ---------- */
+  function render(keepScroll) {
+    var views = { intro: introView, round: roundView, reveal: revealView, summary: summaryView, host: hostView };
+    app.innerHTML = topbar() + views[ui.screen]();
+    if (!keepScroll) window.scrollTo(0, 0);
+  }
+
+  function goToProgress() {
+    var fo = firstOpen();
+    if (fo === -1) { ui.screen = 'summary'; }
+    else { ui.idx = fo; ui.sel = null; ui.conf = 0; ui.screen = 'round'; }
+  }
+
+  /* ---------- actions ---------- */
+  function copyText(text) {
+    function fallback() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast(ok ? 'Address copied' : 'Press and hold the address to copy');
+      } catch (e) { toast('Press and hold the address to copy'); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast('Address copied'); }, fallback);
+    } else { fallback(); }
+  }
+
+  app.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-act]');
+    if (!t || t.disabled) return;
+    var act = t.getAttribute('data-act');
+    var r = ROUNDS[ui.idx];
+    switch (act) {
+      case 'start': goToProgress(); render(); break;
+      case 'pick': ui.sel = parseInt(t.getAttribute('data-opt'), 10); ui.conf = 0; render(true); break;
+      case 'lock':
+        if (ui.sel == null) return;
+        if (ui.conf < 2) { ui.conf++; render(true); break; }
+        ui.conf = 0; state.picks[r.id] = ui.sel; save(); ui.screen = 'reveal'; render(); break;
+      case 'next':
+        if (ui.idx >= ROUNDS.length - 1) { ui.screen = 'summary'; }
+        else {
+          ui.idx += 1;
+          if (picked(ui.idx)) ui.screen = 'reveal'; else { ui.sel = null; ui.conf = 0; ui.screen = 'round'; }
+        }
+        render(); break;
+      case 'switch':
+        delete state.picks[r.id]; save(); ui.sel = null; ui.conf = 0; ui.screen = 'round'; render(); break;
+      case 'dot':
+        var i = parseInt(t.getAttribute('data-i'), 10);
+        ui.idx = i;
+        if (picked(i)) ui.screen = 'reveal'; else { ui.sel = null; ui.conf = 0; ui.screen = 'round'; }
+        render(); break;
+      case 'copy': copyText(t.getAttribute('data-addr')); break;
+      case 'spreeDel':
+        state.spree.splice(parseInt(t.getAttribute('data-i'), 10), 1); save();
+        var sp = document.getElementById('spree'); if (sp) { sp.outerHTML = spreeHTML(); }
+        break;
+      case 'host': ui.screen = 'host'; ui.pinErr = false; render(); break;
+      case 'hostExit': ui.hostOK = false; ui.resetAsk = false; ui.screen = 'intro'; render(); break;
+      case 'resetAsk': ui.resetAsk = true; render(true); break;
+      case 'resetNo': ui.resetAsk = false; render(true); break;
+      case 'resetYes':
+        state.picks = {}; state.spree = []; save(); ui.resetAsk = false; toast('Game reset'); render(true); break;
+    }
+  });
+
+  app.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (e.target.id === 'spreeForm') {
+      var amt = parseFloat(document.getElementById('spree-amt').value);
+      var label = document.getElementById('spree-label').value.trim();
+      if (!isFinite(amt) || amt <= 0) { toast('Enter a price'); return; }
+      state.spree.push({ label: label, amt: Math.round(amt * 100) / 100 }); save();
+      var sp = document.getElementById('spree'); if (sp) { sp.outerHTML = spreeHTML(); }
+      var f = document.getElementById('spree-label'); if (f) f.focus();
+    } else if (e.target.id === 'pinForm') {
+      if (document.getElementById('pin').value === PIN) { ui.hostOK = true; ui.pinErr = false; }
+      else { ui.pinErr = true; }
+      render(true);
+    }
+  });
+
+  app.addEventListener('change', function (e) {
+    var k = e.target.getAttribute && e.target.getAttribute('data-k');
+    if (k) { state.checks[k] = e.target.checked; save(); }
+  });
+
+  window.__appBack = function () {
+    if (ui.screen === 'host') { ui.hostOK = false; ui.resetAsk = false; ui.screen = 'intro'; render(); return; }
+    if (ui.screen === 'summary') { ui.idx = ROUNDS.length - 1; ui.screen = picked(ui.idx) ? 'reveal' : 'round'; render(); return; }
+    if ((ui.screen === 'reveal' || ui.screen === 'round') && ui.idx > 0 && picked(ui.idx - 1)) { ui.idx -= 1; ui.screen = 'reveal'; render(); return; }
+  };
+  render();
+})();
+</script>
+
+<script>
+(function () {
+  var C = window.Capacitor, P = (C && C.Plugins) || {};
+  function openExt(url) {
+    try { if (P.AppLauncher) { P.AppLauncher.openUrl({ url: url }).catch(function () { location.href = url; }); return; } } catch (e) {}
+    location.href = url;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.getAttribute('href') || '';
+    if (/^https?:/i.test(h)) { e.preventDefault(); openExt(h); }
+  }, true);
+  if (P.Clipboard) {
+    try { Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: function (t) { return P.Clipboard.write({ string: t }); } } }); } catch (e) {}
+  }
+  if (P.App) { try { P.App.addListener('backButton', function () { if (window.__appBack) window.__appBack(); }); } catch (e) {} }
+  if (P.StatusBar) { try { P.StatusBar.setStyle({ style: 'DARK' }); P.StatusBar.setBackgroundColor({ color: '#17202b' }); } catch (e) {} }
+  document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+})();
+</script>
+</body></html>

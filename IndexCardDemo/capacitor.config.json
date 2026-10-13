@@ -1,0 +1,23 @@
+{
+  "appId": "com.kelley.indexcarddemo",
+  "appName": "IndexCardDemo",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#17202b",
+    "allowMixedContent": false,
+    "adjustMarginsForEdgeToEdge": "force"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 700,
+      "launchAutoHide": true,
+      "backgroundColor": "#17202b",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#17202b",
+      "overlaysWebView": false
+    }
+  }
+}
