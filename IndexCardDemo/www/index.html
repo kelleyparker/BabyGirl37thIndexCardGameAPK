@@ -304,7 +304,7 @@ th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .12
       var enabled = picked(i) || i === fo;
       return '<button class="' + cls + '" data-act="dot" data-i="' + i + '" aria-label="Round ' + (i + 1) + ': ' + esc(r.title) + '"' + (enabled ? '' : ' disabled') + '></button>';
     }).join('');
-    return '<div class="topbar"><span class="brand">Stephani’s Day <span class="demotag">DEMO</span></span><div class="dots">' + dots + '</div></div>';
+    return '<div class="topbar"><span class="brand">Baby Girl’s Day <span class="demotag">DEMO</span></span><div class="dots">' + dots + '</div></div>';
   }
 
   function cardHTML(letter, roundNo, o, tag, pressed) {
@@ -322,7 +322,7 @@ th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .12
     var fo = firstOpen();
     var label = fo === -1 ? 'See my day' : (fo === 0 ? 'Draw the first card' : 'Pick up where I left off');
     return '<div class="eyebrow">Thursday, October 15 &middot; about 9 AM to 5 PM</div>' +
-      '<h1 class="h1">Happy 37th, Stephani</h1>' +
+      '<h1 class="h1">Happy 37th, Baby Girl</h1>' +
       '<p class="lead">Seven rounds. Two cards each. Pick a side and lock it in. Every card is face down until you choose.</p>' +
       '<button class="btn primary block" data-act="start">' + label + '</button>' +
       '<div style="text-align:center"><button class="link" data-act="host">Host</button></div>';
@@ -386,7 +386,7 @@ th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .12
     }).join('');
     return '<div class="eyebrow">Thursday, October 15</div><h1 class="h1">Your day</h1>' +
       '<div class="day">' + slips + '</div>' +
-      '<p class="sign">Happy birthday, Stephani.<br>Love, Kelley</p>' +
+      '<p class="sign">Happy birthday, Baby Girl.<br>Love, Kelley</p>' +
       '<div style="text-align:center"><button class="link" data-act="host">Host</button></div>';
   }
 
